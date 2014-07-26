@@ -1,0 +1,32 @@
+body {
+  padding: 20px 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a, li a {
+  color: #000;
+}
+
+.carousel .carousel-inner img{
+  height: 150px;
+  margin: 0 auto;
+}
+
+.countdown {
+  font-weight: bold;
+  font-size: 64px;
+  text-align: center;
+}
+
+.countdown .danger {
+  color: red;
+}
+
+.money:before {
+  content: '$';
+}
+
+.transactions {
+  height: 390px;
+  overflow-y: scroll;
+}

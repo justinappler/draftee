@@ -1,0 +1,72 @@
+extends layout
+
+block content
+  div(class='container')
+    div(class='header')
+      ul(class='nav nav-pills pull-right')
+        li
+          a Nominate Player
+        li
+          input(type='text' id='picker' class='span3' data-provide='typeahead' autocomplete='off')
+      h3(class='text-muted') Auction Draft
+    div.row
+      div.span12
+        h3 Nominee
+      div.span4
+        h1(id='playerName') Nominate a Player
+        p(id='playerInfo') Nominate a Player
+        button#bidPlayer(type="button" class="btn btn-success") Start Bidding
+      div.span4
+        div(id='playerPhotos' class='carousel slide')
+          div(class="carousel-inner")
+            div(class='item' id='image1')
+              img(src='' alt="")
+            div(class='item' id='image2')
+              img(src='' alt="")
+            div(class='item' id='image3')
+              img(src='' alt="")
+          a(class="left carousel-control" href="#playerPhotos" data-slide="prev") ‹
+          a(class="right carousel-control" href="#playerPhotos" data-slide="next") ›
+      div.span4
+        div.countdown
+          h3 Countdown
+          span#timer 15
+    hr
+    div.row
+      div.span5
+        div.transactions
+          h3 Transactions
+          table(class="table table-condensed")
+            thead
+              tr
+                th #
+                th Team
+                th Player
+                th $
+            tbody#transBody
+      div.span7
+        h3 Teams
+        table(class="table table-condensed")
+          thead
+            tr
+              th Team Name
+              th Cash Remaining
+              th Maximum Bid
+          tbody#teamsBody
+  div#selectWinnerModal(class="modal fade" tabindex="-1" role="dialog" aria-hidden="true")
+    div.modal-dialog
+      div.modal-content
+        div.modal-header
+          button(type="button" class="close" data-dismiss="modal")
+            span(aria-hidden="true") &times;
+            span.sr-only Close
+          h4.modal-title Select Winner
+        div.modal-body
+          div.input-group
+            label Winning Team
+            input(type='text' id='winningTeam' data-provide='typeahead' autocomplete='off')
+          div.input-group
+            label Winning Price
+            input(type='text' id='winningAmount' placeholder='$45')
+        div.modal-footer
+          button#buyPlayer(class="btn btn-primary") Buy Player
