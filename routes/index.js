@@ -7,7 +7,7 @@ var fs = require('fs');
 var cacheDir = 'public/cache/';
 var imageUrl = 'cache/';
 
-var imageCount = 3;
+var imageCount = 5;
 
 var kimonoAPIKey = process.env.KIMONO_API_KEY || '';
 
@@ -59,11 +59,27 @@ router.get('/images', function(req, res) {
         var imgPath = cacheDir + queryHash + '/' + getFilename(image.url);
 
         count = 0;
-        request(image.url).pipe(fs.createWriteStream(imgPath)).on('close', function() {
-          count++;
+        var imgRequest = request(image.url);
 
-          if (count == imageCount) {
-            res.json({ images: getImages(queryHash) });
+        imgRequest.on('error', function (err) {
+          // noop - ignore image request failures
+        });
+
+        imgRequest.on('response', function (imgResponse) {
+          if (imgResponse.statusCode == 200) {
+            imgRequest
+              .pipe(fs.createWriteStream(imgPath))
+              .on('error', function (err) {
+                console.log('Error saving player image file: ' + err);
+              })
+              .on('close', function() {
+                count++;
+
+                // No matter how many are requested, when we have three, respond
+                if (count == 3) {
+                  res.json({ images: getImages(queryHash) });
+                }
+            });
           }
         });
       });
