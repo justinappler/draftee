@@ -30,6 +30,8 @@ var YaBossClient = new YaBoss(
 function getImages(queryHash) {
   return fs.readdirSync(cacheDir + queryHash).map(function(fn) {
     return imageUrl + queryHash + '/' + fn;
+  }).filter(function (url) {
+    return url.indexOf('DS_Store') == -1;
   });
 }
 
@@ -49,12 +51,15 @@ router.get('/images', function(req, res) {
   var query = req.query.q;
   var queryHash = sha1(query);
 
-  if (!fs.existsSync(cacheDir + queryHash)) {
+  if (!fs.existsSync(cacheDir + queryHash) || fs.readdirSync(cacheDir + queryHash).length < 3) {
     YaBossClient.searchImages(req.query.q, {count: imageCount, dimensions: 'medium'}, function(err, dataFound, response) {
       var jsonData = JSON.parse(dataFound);
       var images = jsonData.bossresponse.images.results;
 
-      fs.mkdirSync(cacheDir + queryHash);
+      if (!fs.existsSync(cacheDir + queryHash)) {
+        fs.mkdirSync(cacheDir + queryHash);
+      }
+      
       images.map(function (image) {
         var imgPath = cacheDir + queryHash + '/' + getFilename(image.url);
 

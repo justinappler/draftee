@@ -2,16 +2,16 @@ function Teams(element) {
   var teamsElement = $(element),
       draftTeams = [],
       defaultTeams = [
-        { id: 1, name: 'Justin\'s Team', cash: 200, players: [] },
-        { id: 2, name: 'Bob\'s Team', cash: 200, players: [] },
-        { id: 3, name: 'Petes\'s Team', cash: 200, players: [] },
-        { id: 4, name: 'Steve\'s Team', cash: 200, players: [] },
-        { id: 5, name: 'Janet\'s Team', cash: 200, players: [] },
-        { id: 6, name: 'Frank\'s Team', cash: 200, players: [] },
-        { id: 7, name: 'Arnold\'s Team', cash: 200, players: [] },
-        { id: 8, name: 'Karl\'s Team', cash: 200, players: [] },
-        { id: 9, name: 'Dave\'s Team', cash: 200, players: [] },
-        { id: 10, name: 'Ricky\'s Team', cash: 200, players: [] }
+        { id: 1, name: 'Caught Red Hernandez', cash: 200, players: [] },
+        { id: 2, name: 'The Raji Mathai\'s', cash: 200, players: [] },
+        { id: 3, name: 'Kaep\'n Crunch', cash: 200, players: [] },
+        { id: 4, name: 'The Smooth Peas', cash: 200, players: [] },
+        { id: 5, name: 'New Mexico Hood Rats', cash: 200, players: [] },
+        { id: 6, name: 'Chad\'s Champion Team', cash: 200, players: [] },
+        { id: 7, name: 'Felton Sluggers', cash: 200, players: [] },
+        { id: 8, name: 'The Bomb Threats', cash: 200, players: [] },
+        { id: 9, name: 'Jeremy\'s Nice Team', cash: 200, players: [] },
+        { id: 10, name: 'Water Sucks', cash: 200, players: [] }
       ];
 
   var storedTeams = window.localStorage.getItem('draftee:teams');

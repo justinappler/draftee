@@ -33,7 +33,7 @@ $(function() {
   function nominateDraftable(draftableName) {
     var draftable = nflData.findDraftables(draftableName)[0];
 
-    carousel.hide();
+    carousel.carousel('pause').hide().carousel(0);
 
     $('#playerName').text(draftable.name);
 
@@ -67,6 +67,7 @@ $(function() {
       callback(images);
     });
   }
+  window.getDraftableImages = getDraftableImages;
 
   function getImages(query, callback) {
     $.ajax({

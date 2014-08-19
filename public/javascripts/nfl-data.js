@@ -81,7 +81,12 @@ function NFLData() {
   }
 
   function toFirstLast(name) {
-    return name.split(',').map(function (c) {return c.trim();}).reverse().join(' ');
+    return name
+      .split(',')
+      .map(function (c) {return c.trim();})
+      .reverse()
+      .join(' ')
+      .replace(/([\S]+?)\s(Jr\.|Sr\.|III)\s([\S]+)/, '$1 $3 $2');
   }
 
   function callKimonoAPI(position) {
