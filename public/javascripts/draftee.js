@@ -102,7 +102,7 @@ $(function() {
   function bidCountDown() {
     var time = parseInt(timer.text());
 
-    if (time - 1 < 5) {
+    if (time - 1 < 10) {
       timer.addClass('danger');
 
       (time - 1 == 0) ? playDone() : playTick();
@@ -123,20 +123,20 @@ $(function() {
       bidState = 'bidding';
 
       bidButton.text('Bidding')
-      $('#timer').text('15');
+      $('#timer').text('25');
 
       bidTimer = setInterval(bidCountDown, 1000);
     } else if (bidState === 'bidding') {
       var time = parseInt(timer.text());
-      if (time < 5) {
-        timer.text('5');
+      if (time < 10) {
+        timer.text('10');
       }
     } else if (bidState === 'done') {
       selectWinnerModal.modal('show');
       bidState = 'not started';
 
       bidButton.text('Start Bidding');
-      timer.text('15').removeClass('danger');
+      timer.text('25').removeClass('danger');
     }
   });
 
