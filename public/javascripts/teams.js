@@ -3,15 +3,13 @@ function Teams(element) {
       draftTeams = [],
       defaultTeams = [
         { id: 1, name: 'Caught Red Hernandez', cash: 200, players: [] },
-        { id: 2, name: 'The Raji Mathai\'s', cash: 200, players: [] },
-        { id: 3, name: 'Kaep\'n Crunch', cash: 200, players: [] },
-        { id: 4, name: 'The Smooth Peas', cash: 200, players: [] },
-        { id: 5, name: 'New Mexico Hood Rats', cash: 200, players: [] },
-        { id: 6, name: 'Chad\'s Champion Team', cash: 200, players: [] },
-        { id: 7, name: 'Felton Sluggers', cash: 200, players: [] },
-        { id: 8, name: 'The Bomb Threats', cash: 200, players: [] },
-        { id: 9, name: 'Jeremy\'s Nice Team', cash: 200, players: [] },
-        { id: 10, name: 'Water Sucks', cash: 200, players: [] }
+        { id: 2, name: 'Monica\'s Lips, Clinton-Dix', cash: 200, players: [] },
+        { id: 3, name: 'Turn Down for WATT', cash: 200, players: [] },
+        { id: 4, name: 'Breezus, King of the Drews', cash: 200, players: [] },
+        { id: 5, name: 'Felton Sluggers', cash: 200, players: [] },
+        { id: 6, name: 'The Bomb Threats', cash: 200, players: [] },
+        { id: 7, name: 'Jeremy\'s Nice Team', cash: 200, players: [] },
+        { id: 8, name: 'Water Sucks', cash: 200, players: [] }
       ];
 
   var storedTeams = window.localStorage.getItem('draftee:teams');
