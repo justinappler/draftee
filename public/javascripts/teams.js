@@ -1,16 +1,19 @@
 function Teams(element) {
+  var teams = [
+  'Caught Red Hernandez',
+  'Monica\'s Lips, Clinton-Dix',
+  'Turn Down for WATT',
+  'Breezus, King of the Drews',
+  'Felton Sluggers',
+  'The Bomb Threats',
+  'Jeremy\'s Nice Team',
+  'Water Sucks'];
+
   var teamsElement = $(element),
       draftTeams = [],
-      defaultTeams = [
-        { id: 1, name: 'Caught Red Hernandez', cash: 200, players: [] },
-        { id: 2, name: 'Monica\'s Lips, Clinton-Dix', cash: 200, players: [] },
-        { id: 3, name: 'Turn Down for WATT', cash: 200, players: [] },
-        { id: 4, name: 'Breezus, King of the Drews', cash: 200, players: [] },
-        { id: 5, name: 'Felton Sluggers', cash: 200, players: [] },
-        { id: 6, name: 'The Bomb Threats', cash: 200, players: [] },
-        { id: 7, name: 'Jeremy\'s Nice Team', cash: 200, players: [] },
-        { id: 8, name: 'Water Sucks', cash: 200, players: [] }
-      ];
+      defaultTeams = $.map(teams, function(team, index) {
+         return { id: index, name: team, cash: 200, players: [] };
+      });
 
   var storedTeams = window.localStorage.getItem('draftee:teams');
   if (storedTeams) {

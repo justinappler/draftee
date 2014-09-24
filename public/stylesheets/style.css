@@ -30,3 +30,7 @@ a, li a {
   height: 390px;
   overflow-y: scroll;
 }
+
+.right {
+    float: right;
+}

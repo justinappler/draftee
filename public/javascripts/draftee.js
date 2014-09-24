@@ -8,7 +8,8 @@ $(function() {
       bidButton = $('#bidPlayer'),
       buyButton = $('#buyPlayer'),
       carousel = $('#playerPhotos'),
-      selectWinnerModal = $('#selectWinnerModal');
+      selectWinnerModal = $('#selectWinnerModal'),
+      resetDataButton = $('#resetData');
 
   var teams = window.draftTeams = new Teams('#teamsBody');
   var transactions = window.transactions = new Transactions('#transBody');
@@ -21,6 +22,11 @@ $(function() {
   // Set some rando nfl thing as the starting images
   carousel.hide();
   bidButton.hide();
+
+  resetDataButton.on('click', function() {
+    draftTeams.resetDraftData();
+    transactions.resetTransactions();
+  });
 
   function getResults(query) {
     return nflData.findDraftables(query).map(function (draftable) {

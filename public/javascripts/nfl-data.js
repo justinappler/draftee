@@ -90,6 +90,14 @@ function NFLData() {
   }
 
   function callKimonoAPI(position) {
+    $.getJSON('/cache/_nfl_data/nfl-'+position+'.json', function(data) {
+        if (position == 'DEF') {
+          getTeams(data);
+        } else {
+          getPlayers(data);
+        }
+    });
+    /*
     $.ajax({
       "url": '/nflData?position=' + position,
       "dataType": "json"
@@ -101,6 +109,7 @@ function NFLData() {
         getPlayers(data);
       }
     });
+    */
   }
 
   function getPlayers(data) {
