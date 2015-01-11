@@ -90,26 +90,27 @@ function NFLData() {
   }
 
   function callKimonoAPI(position) {
-    $.getJSON('/cache/_nfl_data/nfl-'+position+'.json', function(data) {
+    if (NFLData.USE_CACHED_PLAYER_DATA) {
+      $.getJSON('/cache/_nfl_data/nfl-'+position+'.json', function(data) {
+          if (position == 'DEF') {
+            getTeams(data);
+          } else {
+            getPlayers(data);
+          }
+      });
+    } else {
+      $.ajax({
+        "url": '/nflData?position=' + position,
+        "dataType": "json"
+      })
+      .done(function (data) {
         if (position == 'DEF') {
           getTeams(data);
         } else {
           getPlayers(data);
         }
-    });
-    /*
-    $.ajax({
-      "url": '/nflData?position=' + position,
-      "dataType": "json"
-    })
-    .done(function (data) {
-      if (position == 'DEF') {
-        getTeams(data);
-      } else {
-        getPlayers(data);
-      }
-    });
-    */
+      });
+    }
   }
 
   function getPlayers(data) {

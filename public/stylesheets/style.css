@@ -37,6 +37,7 @@ a, li a {
 
 .positions {
   font-size: 70%;
+  color: green;
 }
 
 .position {
@@ -45,4 +46,5 @@ a, li a {
 
 .taken {
   text-decoration: line-through;
+  color: red;
 }
