@@ -34,3 +34,15 @@ a, li a {
 .right {
     float: right;
 }
+
+.positions {
+  font-size: 70%;
+}
+
+.position {
+  padding: 2px;
+}
+
+.taken {
+  text-decoration: line-through;
+}
