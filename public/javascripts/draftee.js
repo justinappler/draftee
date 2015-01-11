@@ -12,9 +12,9 @@ $(function() {
       resetDataButton = $('#resetData');
 
   var nflData = window.nflData = new NFLData();
-  var teams = window.draftTeams = new Teams('#teamsBody', nflData.positions);
+  var teams = window.draftTeams = new Teams('#teamsBody');
   var transactions = window.transactions = new Transactions('#transBody');
-  
+
   nflData.loadData(function (count) {
     console.log('Loaded ' + count + ' NFL Player/Team Records');
   });
