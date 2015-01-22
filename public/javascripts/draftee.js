@@ -52,7 +52,7 @@ $(function() {
       var team = draftable.team;
 
       info.data('position', position);
-      $('#playerInfo').text(position + ' - #' + playerNumber + ' - ' + team);
+      info.text(position + ' - #' + playerNumber + ' - ' + team);
     }
 
     bidButton.show();
