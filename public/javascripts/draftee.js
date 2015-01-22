@@ -8,11 +8,12 @@ $(function() {
       bidButton = $('#bidPlayer'),
       buyButton = $('#buyPlayer'),
       carousel = $('#playerPhotos'),
-      selectWinnerModal = $('#selectWinnerModal');
+      selectWinnerModal = $('#selectWinnerModal'),
+      resetDataButton = $('#resetData');
 
+  var nflData = window.nflData = new NFLData();
   var teams = window.draftTeams = new Teams('#teamsBody');
   var transactions = window.transactions = new Transactions('#transBody');
-  var nflData = window.nflData = new NFLData();
 
   nflData.loadData(function (count) {
     console.log('Loaded ' + count + ' NFL Player/Team Records');
@@ -21,6 +22,11 @@ $(function() {
   // Set some rando nfl thing as the starting images
   carousel.hide();
   bidButton.hide();
+
+  resetDataButton.on('click', function() {
+    draftTeams.resetDraftData();
+    transactions.resetTransactions();
+  });
 
   function getResults(query) {
     return nflData.findDraftables(query).map(function (draftable) {
@@ -40,7 +46,13 @@ $(function() {
     if (draftable.abbrev) {
       $('#playerInfo').text('Defense');
     } else {
-      $('#playerInfo').text(draftable.position + ' - #' + draftable.number + ' - ' + draftable.team);
+      var info = $('#playerInfo');
+      var position = draftable.position;
+      var playerNumber = draftable.number;
+      var team = draftable.team;
+
+      info.data('position', position);
+      info.text(position + ' - #' + playerNumber + ' - ' + team);
     }
 
     bidButton.show();
@@ -148,8 +160,8 @@ $(function() {
 
     if (winningTeam && winningAmount > 0) {
       var draftedPlayer = $('#playerName').text();
-
-      teams.draft(draftedPlayer, winningTeam, winningAmount);
+      var playerInfo = $('#playerInfo');
+      teams.draft(draftedPlayer, playerInfo.data('position'), winningTeam, winningAmount);
       transactions.addTransaction(winningTeam, draftedPlayer, winningAmount);
 
       selectWinnerModal.modal('hide');

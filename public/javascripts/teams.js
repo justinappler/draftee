@@ -1,16 +1,22 @@
 function Teams(element) {
+  var teams = [
+  'Caught Red Hernandez',
+  'Monica\'s Lips, Clinton-Dix',
+  'Turn Down for WATT',
+  'Breezus, King of the Drews',
+  'Felton Sluggers',
+  'The Bomb Threats',
+  'Jeremy\'s Nice Team',
+  'Water Sucks'];
+
+  // TODO This should be configurable
+  var teamComposition = ['QB', 'WR', 'WR', 'RB', 'RB', 'TE', 'K', 'DEF', 'BN', 'BN', 'BN', 'BN', 'BN', 'BN', 'BN'];
+
   var teamsElement = $(element),
       draftTeams = [],
-      defaultTeams = [
-        { id: 1, name: 'Caught Red Hernandez', cash: 200, players: [] },
-        { id: 2, name: 'Monica\'s Lips, Clinton-Dix', cash: 200, players: [] },
-        { id: 3, name: 'Turn Down for WATT', cash: 200, players: [] },
-        { id: 4, name: 'Breezus, King of the Drews', cash: 200, players: [] },
-        { id: 5, name: 'Felton Sluggers', cash: 200, players: [] },
-        { id: 6, name: 'The Bomb Threats', cash: 200, players: [] },
-        { id: 7, name: 'Jeremy\'s Nice Team', cash: 200, players: [] },
-        { id: 8, name: 'Water Sucks', cash: 200, players: [] }
-      ];
+      defaultTeams = $.map(teams, function(team, index) {
+         return { id: index, name: team, cash: 200, players: [] };
+      });
 
   var storedTeams = window.localStorage.getItem('draftee:teams');
   if (storedTeams) {
@@ -37,12 +43,59 @@ function Teams(element) {
     persist();
   }
 
+  function getTeamsPositions(players) {
+    var teamsPositions = [],
+        availablePositions = {};
+
+    // Get a count of available positions
+    teamComposition.forEach(function(position) {
+      if (!availablePositions[position]) {
+        availablePositions[position] = 0;
+      }
+      availablePositions[position]++;
+    });
+
+    // Remove bought players from the team's available list
+    players.forEach(function(player) {
+      if (availablePositions[player.position] > 0) {
+        availablePositions[player.position]--;
+      } else if (availablePositions['BN'] > 0) {
+        availablePositions['BN']--;
+      } else {
+        // TODO we probably want to surface this error when the
+        // team tries to buy the player
+        console.warn('Team has the wrong player compisition')
+      }
+    });
+
+    // Build the list of team positions
+    teamComposition.forEach(function(position) {
+      var span = $('<span></span>');
+      span.addClass('position');
+
+      // If there aren't any remaining, then the
+      // position has been taken
+      if (availablePositions[position] > 0) {
+        availablePositions[position]--;
+      } else {
+        span.addClass('taken');
+      }
+
+      span.text(position);
+      teamsPositions.push(span);
+    });
+
+    return teamsPositions;
+  }
+
   function populateTable() {
     teamsElement.empty();
     draftTeams.forEach(function (team) {
       teamsElement.append(
         $('<tr></tr>').append(
-          $('<td></td>').text(team.name),
+          $('<td></td>').append(
+            $('<div></div>').text(team.name),
+            $('<div></div>').addClass('positions').append(getTeamsPositions(team.players))),
           $('<td></td>').text(team.cash).attr('id', 'cash' + team.id).addClass('money'),
           $('<td></td>').text(getCashRemaining(team)).attr('id', 'maxBid' + team.id).addClass('money')
         )
@@ -50,14 +103,17 @@ function Teams(element) {
     });
   }
 
-  function draft(draftableName, winningTeam, amount) {
+  function draft(draftableName, draftablePosition, winningTeam, amount) {
     draftTeams.forEach(function (team) {
       if (team.name == winningTeam) {
         // Charge the team
         team.cash -= amount;
 
         // Add the player to it's team
-        team.players.push(draftableName);
+        team.players.push({
+          name: draftableName,
+          position: draftablePosition
+        });
 
         // Save the team state, and re-populate the table
         persist();

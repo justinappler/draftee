@@ -43,7 +43,7 @@ function getFilename(url) {
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Auction Draft' });
+  res.render('index', { title: 'Auction Draft', USE_CACHED_PLAYER_DATA: process.env.USE_CACHED_PLAYER_DATA });
 });
 
 /* GET player or team images */
@@ -59,7 +59,7 @@ router.get('/images', function(req, res) {
       if (!fs.existsSync(cacheDir + queryHash)) {
         fs.mkdirSync(cacheDir + queryHash);
       }
-      
+
       images.map(function (image) {
         var imgPath = cacheDir + queryHash + '/' + getFilename(image.url);
 

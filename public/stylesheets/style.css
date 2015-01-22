@@ -30,3 +30,21 @@ a, li a {
   height: 390px;
   overflow-y: scroll;
 }
+
+.right {
+    float: right;
+}
+
+.positions {
+  font-size: 70%;
+  color: green;
+}
+
+.position {
+  padding: 2px;
+}
+
+.taken {
+  text-decoration: line-through;
+  color: red;
+}
